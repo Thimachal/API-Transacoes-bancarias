@@ -6,7 +6,7 @@ const cadastroUser = async (req, res) => {
     const {nome, email, senha} = req.body;
     //verifica se os dados foram passados
     if(!nome || !email || !senha){
-            return res.status(400).json({'mensagem': 'Dados inválidos'});
+            return res.status(400).json({mensagem: 'Dados inválidos'});
     }
 
     try {
