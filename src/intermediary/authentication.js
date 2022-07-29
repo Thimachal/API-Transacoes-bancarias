@@ -2,6 +2,7 @@ const {query} = require('../database/connection');
 const jwt = require('jsonwebtoken');
 const jwtSecret = require('../jwt_secret');
 
+//middleware para autenticação
 const filter = async (req, res, next) => {
     const {authorization} = req.headers;
     if(!authorization){
@@ -19,12 +20,14 @@ const filter = async (req, res, next) => {
 
         const [user] = rows;
 
-        req.user = user;
+        const {senha: _, ...userDados} = user;
+
+        req.user = userDados;
 
         next();
 
     } catch (error) {
-        return res.status(401).json({mensagem: 'Não autorizadoooo'});
+        return res.status(401).json({mensagem: 'Não autorizado'});
     }
 
 };
