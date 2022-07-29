@@ -37,7 +37,13 @@ const cadastroUser = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    const {user} = req;
+    return res.json(user);
+};
+
 
 module.exports = {
-    cadastroUser
+    cadastroUser,
+    getUser
 };
