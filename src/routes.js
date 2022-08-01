@@ -1,12 +1,13 @@
 const express = require('express');
 const {cadastroUser, getUser, updateUser} = require('./controllers/users');
 const {listCategories} = require('./controllers/categories');
+const {listTransactions} = require('./controllers/transactions');
 const {login} = require('./controllers/login');
 const {filter} = require('./intermediary/authentication');
 
 
 const routes = express();
-//rotas de cadastro usuário e login
+//rotas de cadastro de usuário e login
 routes.post('/user', cadastroUser);
 routes.post('/login', login);
 
@@ -17,5 +18,7 @@ routes.get('/user', getUser);
 routes.put('/user', updateUser);
 //rotas de categorias
 routes.get('/categories', listCategories);
+//rotas de transações
+routes.get('/transactions', listTransactions);
 
 module.exports = routes;
