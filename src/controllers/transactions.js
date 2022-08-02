@@ -114,4 +114,29 @@ const updateTransaction = async (req, res) => {
     }
 
 };
-module.exports = {listTransactions, detailTransaction, cadastroTransaction, updateTransaction};
+
+const deleteTransaction = async (req, res) => {
+    const {user} = req;
+    const {id} = req.params;
+
+    try {
+
+        const transaction = await query('select * from transacoes where usuario_id = $1 and id = $2', [user.id, id]);
+
+        if(transaction.rowCount <= 0){
+            return res.status(404).json({mensagem: 'Transação não encontrada'});
+        }
+
+        const queryTransactionDelete =  await query('delete from transacoes where id = $1', [id]);
+
+        if(queryTransactionDelete.rowCount <= 0){
+            return res.status(404).json({mensagem: `Erro interno: ${error.message}`});
+        }
+
+        return res.status(204).send();
+        
+    } catch (error) {
+        return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
+    }
+};
+module.exports = {listTransactions, detailTransaction, cadastroTransaction, updateTransaction, deleteTransaction};
