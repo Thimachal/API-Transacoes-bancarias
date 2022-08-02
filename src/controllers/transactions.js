@@ -2,11 +2,35 @@ const {query} = require('../database/connection');
 
 const listTransactions = async (req, res) => {
     const {user} = req;
+    const {filter} = req.query;
+
+    if(filter && !Array.isArray(filter)){
+        return res.status(404).json({mensagem: 'O filtro precisa ser um array'});
+    }
 
     try {
-        const list = await query('select * from transacoes where usuario_id = $1', [user.id]);
+        let queryLike = '';
+        let arrayFilter;
 
-        return res.json(list.rows);
+        if(filter){
+            arrayFilter = filter.map((item) => `%${item}%`);
+            queryLike += 'and c.descricao ilike any($2)';
+        };
+
+        const queryTransactions = `
+            select t.*, c.descricao as categoria_nome from transacoes t
+            left join categorias c 
+            on t.categoria_id = c.id
+            where t.usuario_id = $1 
+            ${queryLike}
+        `;
+
+        const paramFilter = filter ? [user.id, arrayFilter] : [user.id];
+        
+
+        const transactions = await query(queryTransactions, paramFilter);
+
+        return res.json(transactions.rows);
     } catch (error) {
         return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
     }
