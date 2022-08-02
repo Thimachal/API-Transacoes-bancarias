@@ -139,4 +139,21 @@ const deleteTransaction = async (req, res) => {
         return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
     }
 };
-module.exports = {listTransactions, detailTransaction, cadastroTransaction, updateTransaction, deleteTransaction};
+
+const consultExtract = async (req, res) => {
+    const {user} = req;
+
+    try {
+        const queryExtract = 'select sum(valor) as saldo from transacoes where usuario_id = $1 and tipo = $2';
+        const saldoEntrada = await query(queryExtract, [user.id, 'entrada']);
+        const saldoSaida = await query(queryExtract, [user.id, 'saida']);
+
+        return res.json({
+            entrada: Number(saldoEntrada.rows[0].saldo) ?? 0,
+            saida: Number(saldoSaida.rows[0].saldo) ?? 0
+        });
+    } catch (error) {
+        return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
+    }
+};
+module.exports = {listTransactions, detailTransaction, cadastroTransaction, updateTransaction, deleteTransaction, consultExtract};

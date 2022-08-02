@@ -1,7 +1,7 @@
 const express = require('express');
 const {cadastroUser, getUser, updateUser} = require('./controllers/users');
 const {listCategories} = require('./controllers/categories');
-const {listTransactions,detailTransaction, cadastroTransaction, updateTransaction, deleteTransaction} = require('./controllers/transactions');
+const {listTransactions,detailTransaction, cadastroTransaction, updateTransaction, deleteTransaction, consultExtract} = require('./controllers/transactions');
 const {login} = require('./controllers/login');
 const {filter} = require('./intermediary/authentication');
 
@@ -23,6 +23,7 @@ routes.get('/categories', listCategories);
 
 //rotas de transações
 routes.get('/transactions', listTransactions);
+routes.get('/transactions/extract', consultExtract); //este post tem que ficar antes do get abaixo senão ele não funciona
 routes.get('/transactions/:id', detailTransaction);
 routes.post('/transactions', cadastroTransaction);
 routes.put('/transactions/:id', updateTransaction);
