@@ -28,6 +28,7 @@ const cadastroUser = async (req, res) => {
         if(userCad.rowCount <= 0){
             return res.status(400).json({mensagem: 'Não foi possivel cadastrar o usuário'});
         }
+        
         //desestruturação da query para dar a repsosta sem a senha
         const {senha: _, ...userCadastred} = userCad.rows[0];
         

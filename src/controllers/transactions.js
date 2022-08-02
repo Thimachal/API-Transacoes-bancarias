@@ -1,5 +1,4 @@
 const {query} = require('../database/connection');
-const bcrypt = require('bcrypt');
 
 const listTransactions = async (req, res) => {
     const {user} = req;
@@ -11,7 +10,7 @@ const listTransactions = async (req, res) => {
     } catch (error) {
         return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
     }
-}
+};
 
 const detailTransaction = async (req, res) => {
     const {user} = req;
@@ -31,7 +30,7 @@ const detailTransaction = async (req, res) => {
         return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
     }
 
-}
+};
 
 const cadastroTransaction = async (req, res) => {
     const {user} = req;
@@ -47,8 +46,7 @@ const cadastroTransaction = async (req, res) => {
 
     try {
         
-        const queryCategoria = 'select * from categorias where id = $1';
-        const categoria = await query(queryCategoria, [categoria_id]);
+        const categoria = await query('select * from categorias where id = $1', [categoria_id]);
 
         if(categoria.rowCount <= 0) {
             return res.status(404).json({mensagem:'Categoria não encontrada.'});
@@ -73,4 +71,47 @@ const cadastroTransaction = async (req, res) => {
     }
 
 };
-module.exports = {listTransactions, detailTransaction, cadastroTransaction};
+
+const updateTransaction = async (req, res) => {
+    const {user} = req;
+    const {id} = req.params;
+    const {descricao, valor, data, categoria_id, tipo} = req.body;
+
+    if(!descricao || !valor || !data || !categoria_id || !tipo) {
+        
+        return res.status(404).json({mensagem:'Todos os campos obrigatórios devem ser informados.'});
+    }  
+    if(tipo !== 'entrada' && tipo !== 'saida'){
+        return res.status(404).json({mensagem:'Tipo de transação inválida.'});
+    }
+
+    try {
+
+        const transaction = await query('select * from transacoes where usuario_id = $1 and id = $2', [user.id, id]);
+
+        if(transaction.rowCount <= 0){
+            return res.status(404).json({mensagem: 'Transação não encontrada'});
+        }
+
+        const category = await query('select * from categorias where id = $1', [categoria_id]);
+
+        if(category.rowCount <= 0) {
+            return res.status(404).json({mensagem:'Categoria não encontrada.'});
+        }
+
+        const queryUpdate = 'update transacoes set descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5 where id = $6';
+        const paramUpdate = [descricao, valor, data, categoria_id, tipo, id];
+        const transactionUpdated = await query(queryUpdate, paramUpdate);
+
+        if(transactionUpdated.rowCount <= 0){
+            return res.status(404).json({mensagem: `Erro interno: ${error.message}`});
+        }
+
+        return res.status(204).send();
+        
+    } catch (error) {
+        return res.status(500).json({mensagem: `Erro interno: ${error.message}`});
+    }
+
+};
+module.exports = {listTransactions, detailTransaction, cadastroTransaction, updateTransaction};
