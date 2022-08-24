@@ -5,13 +5,11 @@
 ## Na API você poderá:
 ✓ Cadastrar usuários;
 <br>
-✓ Listar todos os usuários cadastrados;
+✓ Fazer Login
 <br>
-✓ Obter um usuário pelo ID na rota;
+✓ Atualizar usuário
 <br>
-✓ Cadastrar 1 ou mais usuários;
-<br>
-✓ Atualizar dados de um usuário pelo ID na rota;
+✓ Ver informações do usuário logado;
 <br>
 ✓ Listar Categorias;
 <br>
