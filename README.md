@@ -88,8 +88,14 @@ http://localhost:5000/user
 
 ✓ Javascript;
 <br>
-✓ Node Js;
+✓ Node.Js;
 <br>
-✓ PostgreSQL;
+✓ Banco de dados PostgreSQL;
+<br>
+✓ Criptografia;
+<br>
+✓ Token;
+<br>
+✓ Json;
 <br>
 ✓ Insomnia.
