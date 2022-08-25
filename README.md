@@ -11,19 +11,19 @@
 <br>
 ✓ Ver informações do usuário logado;
 <br>
-✓ Listar Categorias;
+✓ Listar categorias;
 <br>
-✓ Listar Transacoes;
+✓ Listar transacoes;
 <br>
-✓ Listar todas transacoes do usuario;
+✓ Extrato das transacoes;
 <br>
 ✓ Listar transacao pelo ID da transacao;
 <br>
-✓ Cadastrar Transacao;
+✓ Cadastrar transacao;
 <br>
-✓ Atualizar Transacao;
+✓ Atualizar transacao;
 <br>
-✓ CDeletar Transacao;
+✓ Deletar transacao;
 <br>
 
 
@@ -42,6 +42,36 @@
 #### ✓ Listar Categorias
 
 http://localhost:5000/categories
+
+#### ✓ Listar Transações
+
+http://localhost:5000/transactions
+
+#### ✓ Extrato Transações
+
+http://localhost:5000/transactions/extract
+
+#### ✓ Detalhar Transação
+
+http://localhost:5000/transactions/1
+
+#### ✓ Cadastrar Transação
+
+http://localhost:5000/transactions
+
+#### ✓ Atualizar Transação pelo id
+
+http://localhost:5000/transactions/2
+
+#### ✓ Deletar Transação pelo id
+
+http://localhost:5000/transactions/2
+
+
+
+
+
+
 
 
 ## Principais tecnologias usadas:
