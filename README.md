@@ -38,8 +38,9 @@
 ### Verbos no Insominia
 ![image](https://user-images.githubusercontent.com/63027260/186544256-6fe694a7-972d-4774-98e0-3f49330d9c63.png)
 
-### Link para usar no insominia de cada rota
-####Listar Categorias
+### Links para usar no insominia de cada rota
+#### ✓ Listar Categorias
+
 http://localhost:5000/categories
 
 
