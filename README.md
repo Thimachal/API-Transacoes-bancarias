@@ -67,11 +67,21 @@ http://localhost:5000/transactions/2
 
 http://localhost:5000/transactions/2
 
+#### ✓ Login Usuário
 
+http://localhost:5000/login
 
+#### ✓ Cadastrar Usuário
 
+http://localhost:5000/user
 
+#### ✓ Atualizar Dados do Usuário Logado
 
+http://localhost:5000/user
+
+#### ✓ Ver Dados do Usuário Logado
+
+http://localhost:5000/user
 
 
 ## Principais tecnologias usadas:
