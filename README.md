@@ -98,4 +98,6 @@ http://localhost:5000/user
 <br>
 ✓ Json;
 <br>
+✓ Dbeaver;
+<br>
 ✓ Insomnia.
